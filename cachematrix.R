@@ -1,7 +1,16 @@
-## Put comments here that give an overall description of what your
-## functions do
+## series of functions to cache a matrix, and calculate the inverse
+## if inverse has been preiously calculated, will return stored calculation
+## instead of re-calculating
 
-## Write a short comment describing this function
+## makeCacheMatrix - Arguments:matrix
+##                   Creates a 'cached' version of a matrix that stores
+##                   the inverse of the natrix if it has been previously
+##                   calculated
+##                   Available functions for cached matrix are:
+##                       set - stores a new matrix the object (clears inverse)
+##                       get - returns the matrix in the object
+##                       setsolve - calculates the inverse for the matrix
+##                       getsove - returns the stored inverse
 
 makeCacheMatrix <- function(x = matrix()) {
     m <- NULL
@@ -16,10 +25,12 @@ makeCacheMatrix <- function(x = matrix()) {
          setsolve = setsolve,
          getsolve = getsolve)
 }
-?`<<-`
-## Write a short comment describing this function
 
-cacheSolve <- function(x, ...) {
+## cacheSolve      - Arguments: 'cached' matrix from makeCacheMatrix
+##                   Returns the inverse of the matrix by calling the
+##                   argument objext's internal functions
+
+cacheSolve <- function(x) {
     ## Return a matrix that is the inverse of 'x'
     m <- x$getsolve()
     if(!is.null(m)) {
@@ -28,7 +39,7 @@ cacheSolve <- function(x, ...) {
     }
     
     data <- x$get()
-    m <- solve(data, ...)
+    m <- solve(data)
     x$setsolve(m)
     m
 }
